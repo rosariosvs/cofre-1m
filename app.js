@@ -4,11 +4,12 @@ import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, setPe
 import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, collection, doc, addDoc, updateDoc, deleteDoc, setDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const TARGET = 1000000;
+// Neutral starting goals. The real goals are saved in Firebase from "Editar metas".
 const DEFAULT_GOALS = [
-  { id: "tel", name: "Telefones", cap: 40000 },
-  { id: "emg", name: "Emergência", cap: 60000 },
-  { id: "cob", name: "Cobertura", cap: 350000 },
-  { id: "pra", name: "Prado J90", cap: 550000 }
+  { id: "m1", name: "Meta 1", cap: 250000 },
+  { id: "m2", name: "Meta 2", cap: 250000 },
+  { id: "m3", name: "Meta 3", cap: 250000 },
+  { id: "m4", name: "Meta 4", cap: 250000 }
 ];
 const MONTHS = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 const MILES = [10, 25, 50, 75, 90, 100];
