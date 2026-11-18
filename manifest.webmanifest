@@ -1,0 +1,17 @@
+{
+  "name": "Cofre 1M",
+  "short_name": "Cofre 1M",
+  "description": "Cofre partilhado rumo a 1.000.000 MT.",
+  "lang": "pt",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f3f5fa",
+  "theme_color": "#1846c4",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cofre 1M</title>
+<meta name="theme-color" content="#1846c4">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Cofre 1M">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Login -->
+<main class="login" id="loginView" hidden>
+  <div class="login-card">
+    <svg class="login-mark" viewBox="0 0 60 69" aria-hidden="true"><polygon points="30,2 58,18 58,51 30,67 2,51 2,18" fill="#1846c4"/></svg>
+    <h1>Cofre 1M</h1>
+    <p class="small">Entra com a conta que criaste para o cofre.</p>
+    <form id="loginForm" autocomplete="on">
+      <div class="field">
+        <label for="loginEmail">Email</label>
+        <input id="loginEmail" type="email" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="loginPass">Palavra-passe</label>
+        <input id="loginPass" type="password" autocomplete="current-password" required>
+      </div>
+      <button class="btn-solid wide" id="loginBtn" type="submit">Entrar</button>
+      <p class="hint" id="loginHint"></p>
+    </form>
+  </div>
+</main>
+
+<!-- Config missing -->
+<main class="login" id="setupView" hidden>
+  <div class="login-card">
+    <h1>Falta ligar o Firebase</h1>
+    <p class="small">Abre o ficheiro <b>firebase-config.js</b> e cola lá a configuração do teu projeto Firebase. Os passos estão no guia que veio com a app.</p>
+  </div>
+</main>
+
+<!-- App -->
+<div class="wrap" id="appView" hidden>
+  <header>
+    <div>
+      <p class="eyebrow">Meta até dezembro de 2027</p>
+      <h1>Cofre 1M</h1>
+    </div>
+    <div class="head-btns">
+      <button type="button" class="btn-ghost" id="histBtn" aria-expanded="false" aria-controls="history">Histórico</button>
+      <button type="button" class="btn-text" id="logoutBtn">Sair</button>
+    </div>
+  </header>
+
+  <div class="main">
+    <div class="col-a">
+      <section class="vault" aria-label="Cofre de favos">
+        <div class="vault-meta">
+          <span id="cellsLeft">A abrir o cofre…</span>
+          <span>150 favos · 1.000.000 MT</span>
+        </div>
+        <svg class="grid" id="grid" role="group" aria-label="Favos do cofre"></svg>
+        <div class="legend" aria-hidden="true">
+          <span><i class="sw" style="background:#ffffff"></i>Vazio</span>
+          <span><i class="sw" style="background:linear-gradient(90deg,#1846c4 50%,#ffffff 50%)"></i>A encher</span>
+          <span><i class="sw" style="background:#1846c4;border-color:#1846c4"></i>Cheio</span>
+        </div>
+      </section>
+    </div>
+
+    <div class="col-b">
+      <form class="deposit" id="form" autocomplete="off">
+        <div class="field">
+          <label for="amount">Valor (MT)</label>
+          <input id="amount" inputmode="numeric" placeholder="Ex.: 25.000">
+        </div>
+        <div class="field">
+          <label for="source">Proveniência</label>
+          <input id="source" list="sourceList" placeholder="Ex.: Salário">
+          <datalist id="sourceList"></datalist>
+        </div>
+        <button class="add" id="addBtn" type="submit" aria-label="Guardar no cofre" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </button>
+      </form>
+      <p class="hint" id="hint">Toca num favo ou escreve o valor que acabaste de guardar.</p>
+      <div class="last" id="last" hidden>
+        <span class="last-label">Último registo</span>
+        <div id="lastBody"></div>
+      </div>
+
+      <section class="insights" aria-label="Indicadores">
+        <div class="next" id="next"><span class="lbl">Próxima meta</span><span class="nm">A abrir…</span></div>
+        <div class="miles" id="miles" aria-label="Marcos do cofre"></div>
+        <div class="tile"><span class="tile-label">Ritmo</span><div id="pace" class="stack"></div></div>
+      </section>
+
+      <section class="goals" aria-label="Metas">
+        <div class="goals-head">
+          <h2>Onde estamos</h2>
+          <button type="button" class="btn-ghost small" id="editGoalsBtn">Editar metas</button>
+        </div>
+        <div id="goals"></div>
+        <p class="note" id="goalsNote" hidden></p>
+        <div class="editor" id="editor" hidden>
+          <div class="ed-row ed-head" aria-hidden="true"><span>Meta</span><span>Valor (MT)</span><span></span></div>
+          <div id="edRows" class="stack"></div>
+          <div><button type="button" class="btn-ghost small" id="edAdd">Adicionar meta</button></div>
+          <div class="ed-foot">
+            <span class="ed-sum" id="edSum"></span>
+            <div class="row-btns">
+              <button type="button" class="btn-text" id="edCancel">Cancelar</button>
+              <button type="button" class="btn-solid" id="edSave">Guardar metas</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section class="history" id="history" hidden aria-label="Histórico de depósitos">
+    <h2>Histórico</h2>
+    <div id="histBody"></div>
+  </section>
+</div>
+
+<div class="toast" id="toast" hidden role="status"></div>
+<div class="offline" id="offline" hidden>Sem internet. Os registos ficam guardados e sincronizam quando voltar a ligação.</div>
+
+<script type="module" src="app.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+  }
+</script>
+</body>
+</html>
